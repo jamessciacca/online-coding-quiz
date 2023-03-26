@@ -7,7 +7,7 @@ var choicesEl = document.querySelector('#choices')
 console.log(startBtn)
 
 console.log(questions)
-console.log(questions.choices)
+console.log(questions)
 
 //questions[i].title
 
@@ -15,10 +15,10 @@ function startQuiz(){
     for(title = 0; title < questions.length; title++){
         questionEl.innerText = questions[title].title;
 
-        for(choice = 0; choice < 4; choice++){
-            var button = document.createElement('button');
-            button.setAttribute('value', questions[title].choices[choice]);
-            choicesEl.innerText = button;
+        for(choice = 0; choice <= 4; choice++){
+            var choiceBtn = document.createElement('button');
+            choiceBtn.innerHTML = questions[title].choices[choice];
+            choicesEl.append(choiceBtn);
         }
 
     }
