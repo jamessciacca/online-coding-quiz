@@ -6,23 +6,42 @@ var choicesEl = document.querySelector('#choices')
 // sanity check console.log
 console.log(startBtn)
 
+
 console.log(questions)
 console.log(questions)
+
 
 //questions[i].title
 
+
 function startQuiz(){
+    //used title as i to represent the index!
     for(title = 0; title < questions.length; title++){
+        //setting the inner text of HTML id question to the title of the question
         questionEl.innerText = questions[title].title;
-
-        for(choice = 0; choice <= 4; choice++){
-            var choiceBtn = document.createElement('button');
-            choiceBtn.innerHTML = questions[title].choices[choice];
-            choicesEl.append(choiceBtn);
-        }
-
     }
+
+
+    for(choice = 0; choice <= 4; choice++){
+         var choiceBtn = document.createElement('button');
+         choiceBtn.innerHTML = questions[choice].choices[choice];
+         //pushing the created button elements to the screen
+         choicesEl.append(choiceBtn);
+        }
 }
+
+
+//i need to check the users answer by comparing the selected button with the answer in the questions array
+//i need to figure out which button is selected and compare it to the correct answer
+   
+    //create if statement comparing user answer with correct answer
+   
+
+
+
+
+
+
 
 
 
@@ -49,17 +68,21 @@ startBtn.addEventListener('click', startQuiz)
 //     // append the element to that parent section
 //     document.querySelector('#questionSection').append(questionEl)
 
+
 //     var choiceBtn1 = document.createElement('button')
 //     var choiceBtn2 = document.createElement('button')
 //     var choiceBtn3 = document.createElement('button')
+
 
 //     console.log(choiceBtn1)
 //     console.log(choiceBtn2)
 //     console.log(choiceBtn3)
 
+
 //     document.querySelector('#questionSection').append(choiceBtn1)
 //     document.querySelector('#questionSection').append(choiceBtn2)
 //     document.querySelector('#questionSection').append(choiceBtn3)
+
 
 //     // add event listeners to each of those buttons (w/ named function?)
 //     choiceBtn1.addEventListener('click', checkAnswer)
@@ -69,7 +92,13 @@ startBtn.addEventListener('click', startQuiz)
 
 
 
+
+
+
 //use a for loop to create button elements based on the array of questions and answers!
+
+
+
 
 
 
@@ -85,5 +114,6 @@ startBtn.addEventListener('click', startQuiz)
 //     }
     // grab the textcontent of that button
     // compare it to the correct answer
+
 
     // clear the questions section and buuild a new quest section
