@@ -51,6 +51,9 @@ function showQuestion() {
         //listening for a button click and running check Answer function
         choiceBtn.addEventListener('click', checkAnswer)
         choicesEl.append(choiceBtn);
+
+        //check to see if there are questions left
+        questionsLeft();
     }
 
 }
@@ -78,7 +81,7 @@ function checkAnswer(event) {
 }
 
 function questionsLeft (){
-    if(questions[questionUserIsOn].title > questions.length){
+    if(questionUserIsOn > questions.length){
         endQuiz();
     }
 }
