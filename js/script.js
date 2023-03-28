@@ -5,6 +5,7 @@ var questionEl = document.querySelector('#question');
 var choicesEl = document.querySelector('#choices')
 var timerEl = document.querySelector('#timer')
 var questionSection = document.querySelector('#questionSection')
+var endSection = document.querySelector('#endSection')
 var questionUserIsOn = 0;
 var timer;
 var seconds = 59;
@@ -15,7 +16,7 @@ console.log(startBtn)
 
 console.log(questions)
 console.log(questions)
-
+console.log(questions[questionUserIsOn])
 
 //creating timer element 
 function onScreenTimer(){
@@ -53,7 +54,6 @@ function showQuestion() {
         choicesEl.append(choiceBtn);
 
         //check to see if there are questions left
-        questionsLeft();
     }
 
 }
@@ -66,30 +66,34 @@ function checkAnswer(event) {
         choicesEl.innerHTML = '';
         console.log('correct')
         questionUserIsOn = questionUserIsOn + 1;
-        showQuestion();
-    } 
-
-    if(userChoice != questions[questionUserIsOn].answer){
-        choicesEl.innerHTML = '';
-        console.log('wrong')
-        questionUserIsOn = questionUserIsOn + 1;
-        showQuestion();
-        timeDeduction();
+        questionsLeft(questionUserIsOn);
+    } else {
+            choicesEl.innerHTML = '';
+            console.log('wrong')
+            questionUserIsOn = questionUserIsOn + 1;
+            questionsLeft(questionUserIsOn);
+            timeDeduction();
         
         //deduct 10 sec from timer
-    }
+
+    console.log(questionUserIsOn)
+}
 }
 
-function questionsLeft (){
-    if(questionUserIsOn > questions.length){
+function questionsLeft (questionUserIsOn){
+    if(questionUserIsOn < 5){
+        showQuestion();
+    }else{
         endQuiz();
     }
 }
 
 function endQuiz (){
-    questionSection.innerHtml = '';
+    
+    questionSection.classList.add('hide')
+    endSection.innerHTML = 'Quiz Over!';
 }
-
+console.log(questionUserIsOn)
 // function endQuiz (){
 //     //send user to the end of the quiz with a page to enter initials 
 // }
