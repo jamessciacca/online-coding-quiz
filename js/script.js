@@ -3,6 +3,12 @@
 var startBtn = document.querySelector('#startBtn');
 var questionEl = document.querySelector('#question');
 var choicesEl = document.querySelector('#choices')
+var timerEl = document.querySelector('#timer')
+var questionSection = document.querySelector('#questionSection')
+var questionUserIsOn = 0;
+var timer;
+var seconds = 59;
+var interval;
 // sanity check console.log
 console.log(startBtn)
 
@@ -11,31 +17,84 @@ console.log(questions)
 console.log(questions)
 
 
-//questions[i].title
-
-
-function startQuiz(){
-    //used title as i to represent the index!
-    for(title = 0; title < questions.length; title++){
-        //setting the inner text of HTML id question to the title of the question
-        questionEl.innerText = questions[title].title;
-    }
-
-
-    for(choice = 0; choice <= 4; choice++){
-         var choiceBtn = document.createElement('button');
-         choiceBtn.innerHTML = questions[choice].choices[choice];
-         //pushing the created button elements to the screen
-         choicesEl.append(choiceBtn);
-        }
+//creating timer element 
+function onScreenTimer(){
+    timerEl.classList.remove('hide')
+    timer = setInterval(() =>{
+        timerEl.innerHTML = 'Time Remaining - 00:'+ seconds + ' seconds!';
+        seconds --;
+    }, 1000)//1 second
 }
 
+function timeDeduction (){
+    //runs if user gets question wrong!
+    seconds = seconds - 10;
+}
 
+function startQuiz() {
+    startBtn.classList.add('hide');
+    //used title as i to represent the index!
+    // for(title = 0; title < questions.length; title++){
+    //setting the inner text of HTML id question to the title of the question
+    // }
+
+    showQuestion()
+    onScreenTimer()
+}
+
+function showQuestion() {
+    questionEl.innerText = questions[questionUserIsOn].title;
+    for (choice = 0; choice < 4; choice++) {
+        var choiceBtn = document.createElement('button');
+        choiceBtn.innerHTML = questions[questionUserIsOn].choices[choice];
+        //pushing the created button elements to the screen
+        //listening for a button click and running check Answer function
+        choiceBtn.addEventListener('click', checkAnswer)
+        choicesEl.append(choiceBtn);
+    }
+
+}
+
+function checkAnswer(event) {
+    //compare the users selection with the actual answer from the question
+    var userChoice = event.srcElement.innerText;
+
+    if (userChoice === questions[questionUserIsOn].answer) {
+        choicesEl.innerHTML = '';
+        console.log('correct')
+        questionUserIsOn = questionUserIsOn + 1;
+        showQuestion();
+    } 
+
+    if(userChoice != questions[questionUserIsOn].answer){
+        choicesEl.innerHTML = '';
+        console.log('wrong')
+        questionUserIsOn = questionUserIsOn + 1;
+        showQuestion();
+        timeDeduction();
+        
+        //deduct 10 sec from timer
+    }
+}
+
+function questionsLeft (){
+    if(questions[questionUserIsOn].title > questions.length){
+        endQuiz();
+    }
+}
+
+function endQuiz (){
+    questionSection.innerHtml = '';
+}
+
+// function endQuiz (){
+//     //send user to the end of the quiz with a page to enter initials 
+// }
 //i need to check the users answer by comparing the selected button with the answer in the questions array
 //i need to figure out which button is selected and compare it to the correct answer
-   
-    //create if statement comparing user answer with correct answer
-   
+
+//create if statement comparing user answer with correct answer
+
 
 
 
