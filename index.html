@@ -5,44 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Coding Quiz</title>
+    <link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+    <div id="highscores" class='hide'>
+        <div class="d-flex flex-column col-8 mx-auto">
+            <h1 class="text-center pt-3 pb-3">High Scores!</h1>
+        </div>
+        <p class="text-center pb-3">Refresh the Page to Return Home!</p>
+    </div>
     
-    <div id="startSection">
-        <h1 class="text-center">Coding Quiz Challenge</h1>
-        <p class="text-center">Try to answer the following code related questions within the time limit. Keep in mind that incorrect answers will penalize your time by 10 seconds!</p>
+    <div id="startSection" class="d-flex flex-column col-8 mx-auto">
+        <button id="highScoreBtn">High Scores</button>
+        <h1 class="text-center pt-3 pb-3">Coding Quiz Challenge</h1>
+        <p class="text-center pb-3">Try to answer the following code related questions within the time limit. Keep in mind that incorrect answers will penalize your time by 10 seconds!</p>
         <button id="startBtn">Start</button>
     </div>
 
 
-    <div id="questionSection">
+    <div id="questionSection" class="d-flex flex-column col-8 mx-auto">
         <div id="scorecard" class="hide">Score: <span id='score'></span> out of 5</div>
-        <div class="timerDiv hide">Time Remaining: <span id="timer"></span> second(s) left!</div>
+        <div class="timerDiv hide pb-3">Time Remaining: <span id="timer"></span> second(s) left!</div>
         <h2 id="question"></h2>
         <div id="choices"></div>
         <div id="correctorwrong"></div>
     </div>
 
     <div id="endSection" class="hide">
-        <h1>Quiz Finished!</h1>
-        <h5>Your final score is <span id='finalscore'></span> out of 5</h5>
+        <div class="d-flex flex-column col-8 mx-auto ">
+            <h1  class="text-center">Quiz Finished!</h1>
+        <h5  class="text-center">Your final score is <span id='final-score'></span> out of 5</h5>
         <!-- space to enter initials -->
-        <form>
-            <input type="text" placeholder="Enter Your Initials" />
-            <input type="submit" value="Submit"/>
+        <form class="text-center">
+            <input id='textBox' type="text" placeholder="Enter Your Initials" />
+            <input id='submitInitials' type="submit" value="Submit"/>
         </form>
+        </div> 
     </div>
     
-
-
-
-
-
-
-
-
 
     <script src="js/questions.js"></script>
     <script src="js/script.js"></script>

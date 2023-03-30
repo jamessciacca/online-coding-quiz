@@ -10,7 +10,12 @@ var correctOrWrong = document.querySelector('#correctorwrong')
 var timerDiv = document.querySelector('.timerDiv')
 var scorecardDiv = document.querySelector('#scorecard')
 var scoreEl = document.querySelector('#score')
-var finalScore = document.querySelector('#finalscore')
+var finalScore = document.querySelector('#final-score')
+var initialsBtn = document.querySelector('#submitInitials')
+var highScores = document.querySelector('#highscores')
+var highScoreButton = document.querySelector('#highScoreBtn')
+var homeBtn = document.querySelector('#homeBtn')
+var initials;
 var questionUserIsOn = 0;
 var timer;
 var seconds = 59;
@@ -19,7 +24,7 @@ var score = -1;
 
 //function to hide welcome page and show timer and question
 function startQuiz() {
-    startSection.classList.add('hide');
+    startSection.classList.add('d-none');
 
     showQuestion()
     onScreenTimer()
@@ -32,10 +37,17 @@ function showQuestion() {
     for (choice = 0; choice < 4; choice++) {
         var choiceBtn = document.createElement('button');
         choiceBtn.innerHTML = questions[questionUserIsOn].choices[choice];
+        //adding styles
+        choiceBtn.classList.add('bg-info', 'me-3', 'mt-3', 'pe-3', 'ps-3')
+        choiceBtn.classList.add('me-3')
+        choiceBtn.classList.add('mt-3')
+        choiceBtn.classList.add('pe-3')
+        choiceBtn.classList.add('ps-3')
         //pushing the created button elements to the screen
         //listening for a button click and running check Answer function
         choiceBtn.addEventListener('click', checkAnswer)
         choicesEl.append(choiceBtn);
+        
     }
 }
 
@@ -79,13 +91,51 @@ function keepScore(){
     scoreEl.innerHTML = score;
 }
 
+//a function that runs when the user submits his/her initials on the end screen
+function submitUserInitialsAndScore(e){
+    //stops button from refreshing screen
+    e.preventDefault();
+    var textBox = document.querySelector('#textBox')
+    score = score + 1;
+    initials = textBox.value;
+    var userScore = score;
+    console.log(userScore)
+    localStorage.setItem('userInitials', JSON.stringify(initials))
+    localStorage.setItem('userScore', JSON.stringify(userScore))
+
+    displayHighScoresWithName();
+}
+
+//create a function that sends user to the highscores screen from end of quiz!
+function displayHighScoresWithName(){
+    startSection.classList.add('d-none')
+    endSection.classList.add('d-none');
+    //show highscores page
+    highScores.classList.remove('hide');
+    //i need to pull local storage and print highscores
+    var initials = JSON.parse(localStorage.getItem('userInitials'));
+    var userScore = JSON.parse(localStorage.getItem('userScore'));
+    var displayScores = document.createElement('p')
+    displayScores.innerHTML = initials + ' - ' + userScore;
+    displayScores.classList.add('text-center')
+    //sanity check
+    console.log(initials)
+    highScores.appendChild(displayScores)
+}
 
 //function that sends user to the end screen
 function endQuiz(){
-    questionSection.classList.add('hide')
+    questionSection.classList.add('d-none')
     endSection.classList.remove('hide')
     //prints final score
-    finalScore.innerHTML = score;
+    finalScore.innerHTML = score + 1;
+    
+}
+
+//function to allow user to return to the home screen
+function homeScreen(){
+    highScores.classList.add('d-none')
+    startSection.classList.remove('d-none')
 }
 
 //function that displays the timer when start button is hit! 
@@ -96,7 +146,7 @@ function onScreenTimer(){
         seconds --;
 
         //if user runs out of time I want to stop timer and send user to end screen!
-        if(seconds <= 0){
+        if(seconds < 0){
             clearInterval(timer);
             endQuiz();
         }
@@ -112,3 +162,6 @@ function timeDeduction (){
 
 //event listeners - 
 startBtn.addEventListener('click', startQuiz);
+initialsBtn.addEventListener('click', submitUserInitialsAndScore);
+highScoreButton.addEventListener('click', displayHighScoresWithName)
+homeBtn.addEventListener('click', homeScreen)
