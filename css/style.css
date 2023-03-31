@@ -1,8 +1,13 @@
 body {
     /* make body 100% of the window */
     height: 100%;
-    background: #525050;
+    background: #6c7467;
     color: white;
+    
+}
+
+button{
+    background-color: #4e97be;
 }
 
 .hide {
@@ -10,19 +15,19 @@ body {
 }
 
 #startSection{
-    margin-top: 35%;
+    margin-top: 17.5%;
 }
 
 #questionSection{
-    margin-top: 35%;
+    margin-top: 17.5%;
 }
 
 #endSection{
-    margin-top: 35%;
+    margin-top: 17.5%;
 }
 
 #highscores{
-    margin-top: 35%;
+    margin-top: 17.5%;
 }
 
 button{

@@ -91,10 +91,10 @@ function keepScore(){
 }
 
 //a function that runs when the user submits his/her initials on the end screen
-function submitUserInitialsAndScore(e){
+function submitUserInitialsAndScore(e) {
     //stops button from refreshing screen
     e.preventDefault();
-    var textBox = document.querySelector('#textBox')
+    var textBox = document.querySelector('#textBox');
     score = score + 1;
     var initials = textBox.value;
     var userScore = score;
@@ -102,19 +102,12 @@ function submitUserInitialsAndScore(e){
         initials: initials,
         userScore: userScore,
     };
-    console.log(userScore)
     var currentHiScores = JSON.parse(localStorage.getItem('hiScores'));
-    // if we dont have any hi scores
-    if(currentHiScores === null){
-        // make hi score (array of hiScoresObj)
-        let hiScoreObjs = [hiScoreObj] // create an array w/ only one element(an obj)
-        // add it to LS
-        localStorage.setItem('hiScores', JSON.stringify(hiScoreObjs))
-    } else { // if a hiScores array is up there
-        currentHiScores.push(hiScoreObj);
-        localStorage.setItem('hiScores', JSON.stringify(hiScoreObj))
-        
-    }
+
+    currentHiScores.push(hiScoreObj);
+
+    localStorage.setItem('hiScores', JSON.stringify(currentHiScores)) || [];
+
     displayHighScoresWithName();
 }
 
@@ -128,19 +121,14 @@ function displayHighScoresWithName(){
     // var initials = JSON.parse(localStorage.getItem('userInitials'));
     // var userScore = JSON.parse(localStorage.getItem('userScore'));
     var hiScoreObj = JSON.parse(localStorage.getItem('hiScores'));
+    console.log(hiScoreObj)
     for(i = 0; i < hiScoreObj.length; i++){
-        var hiScores = document.querySelector('#hiScores')
+        var displayHiScore = document.querySelector('#hiScores');
         var hiScore = document.createElement('li')
         hiScore.innerHTML = hiScoreObj.initials + ' - ' + hiScoreObj.userScore;
-        hiScores.appendChild(hiScore)
-
+        displayHiScore.appendChild(hiScore)
+        //its not printing anything!!
     }
-   
-    displayScores.innerHTML = initials + ' - ' + userScore;
-    displayScores.classList.add('text-center')
-    //sanity check
-    console.log(initials)
-    highScores.appendChild(displayScores)
 }
 
 //function that sends user to the end screen
@@ -150,12 +138,6 @@ function endQuiz(){
     //prints final score
     finalScore.innerHTML = score + 1;
     
-}
-
-//function to allow user to return to the home screen
-function homeScreen(){
-    highScores.classList.add('d-none')
-    startSection.classList.remove('d-none')
 }
 
 //function that displays the timer when start button is hit! 
@@ -184,4 +166,3 @@ function timeDeduction (){
 startBtn.addEventListener('click', startQuiz);
 initialsBtn.addEventListener('click', submitUserInitialsAndScore);
 highScoreButton.addEventListener('click', displayHighScoresWithName)
-homeBtn.addEventListener('click', homeScreen)
