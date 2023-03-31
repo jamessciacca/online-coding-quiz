@@ -15,7 +15,6 @@ var initialsBtn = document.querySelector('#submitInitials')
 var highScores = document.querySelector('#highscores')
 var highScoreButton = document.querySelector('#highScoreBtn')
 var homeBtn = document.querySelector('#homeBtn')
-var initials;
 var questionUserIsOn = 0;
 var timer;
 var seconds = 59;
@@ -38,7 +37,7 @@ function showQuestion() {
         var choiceBtn = document.createElement('button');
         choiceBtn.innerHTML = questions[questionUserIsOn].choices[choice];
         //adding styles
-        choiceBtn.classList.add('bg-info', 'me-3', 'mt-3', 'pe-3', 'ps-3')
+        choiceBtn.classList.add('bg-info')
         choiceBtn.classList.add('me-3')
         choiceBtn.classList.add('mt-3')
         choiceBtn.classList.add('pe-3')
@@ -97,12 +96,25 @@ function submitUserInitialsAndScore(e){
     e.preventDefault();
     var textBox = document.querySelector('#textBox')
     score = score + 1;
-    initials = textBox.value;
+    var initials = textBox.value;
     var userScore = score;
+    var hiScoreObj = {
+        initials: initials,
+        userScore: userScore,
+    };
     console.log(userScore)
-    localStorage.setItem('userInitials', JSON.stringify(initials))
-    localStorage.setItem('userScore', JSON.stringify(userScore))
-
+    var currentHiScores = JSON.parse(localStorage.getItem('hiScores'));
+    // if we dont have any hi scores
+    if(currentHiScores === null){
+        // make hi score (array of hiScoresObj)
+        let hiScoreObjs = [hiScoreObj] // create an array w/ only one element(an obj)
+        // add it to LS
+        localStorage.setItem('hiScores', JSON.stringify(hiScoreObjs))
+    } else { // if a hiScores array is up there
+        currentHiScores.push(hiScoreObj);
+        localStorage.setItem('hiScores', JSON.stringify(hiScoreObj))
+        
+    }
     displayHighScoresWithName();
 }
 
@@ -113,9 +125,17 @@ function displayHighScoresWithName(){
     //show highscores page
     highScores.classList.remove('hide');
     //i need to pull local storage and print highscores
-    var initials = JSON.parse(localStorage.getItem('userInitials'));
-    var userScore = JSON.parse(localStorage.getItem('userScore'));
-    var displayScores = document.createElement('p')
+    // var initials = JSON.parse(localStorage.getItem('userInitials'));
+    // var userScore = JSON.parse(localStorage.getItem('userScore'));
+    var hiScoreObj = JSON.parse(localStorage.getItem('hiScores'));
+    for(i = 0; i < hiScoreObj.length; i++){
+        var hiScores = document.querySelector('#hiScores')
+        var hiScore = document.createElement('li')
+        hiScore.innerHTML = hiScoreObj.initials + ' - ' + hiScoreObj.userScore;
+        hiScores.appendChild(hiScore)
+
+    }
+   
     displayScores.innerHTML = initials + ' - ' + userScore;
     displayScores.classList.add('text-center')
     //sanity check
