@@ -10,6 +10,7 @@ I created a Online Quiz using HTML, CSS, JavaScript, and JSON. Utilizing the Loc
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
+- [Screen-Shots](#screenshots)
 
 ## Installation
 
@@ -54,3 +55,11 @@ SOFTWARE.
 ## Features
 
 HighScores page, interactive quiz, and Interactive Timer Element!
+
+## screenshots
+![image](https://user-images.githubusercontent.com/78399517/229008313-3b0c5f0c-bcd5-4c26-9858-a9d80969f706.png)
+![image](https://user-images.githubusercontent.com/78399517/229008369-c2604ed0-b49a-4551-81cf-5078c55c6573.png)
+![image](https://user-images.githubusercontent.com/78399517/229008430-abb43fee-6a56-4c39-81e2-b6e6197d29e6.png)
+
+
+
