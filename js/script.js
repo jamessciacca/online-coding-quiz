@@ -102,6 +102,7 @@ function submitUserInitialsAndScore(e) {
         initials: initials,
         userScore: userScore,
     };
+    
     var currentHiScores = JSON.parse(localStorage.getItem('hiScores')) || [];
 
     currentHiScores.push(hiScoreObj);
@@ -115,22 +116,19 @@ function submitUserInitialsAndScore(e) {
 function displayHighScoresWithName(){
     startSection.classList.add('d-none')
     endSection.classList.add('d-none');
-    //show highscores page
     highScores.classList.remove('hide');
-    //i need to pull local storage and print highscores
-    // var initials = JSON.parse(localStorage.getItem('userInitials'));
-    // var userScore = JSON.parse(localStorage.getItem('userScore'));
+
     var hiScoreArr = JSON.parse(localStorage.getItem('hiScores'));
     console.log(hiScoreArr)
+
     for(i = 0; i < hiScoreArr.length; i++){
         var currentObj = hiScoreArr[i]
         console.log(currentObj)
         var displayHiScore = document.querySelector('#hiScores');
         var hiScore = document.createElement('li')
-        hiScore.innerHTML = currentObj.initials + ' - ' + currentObj.userScore;
         hiScore.classList.add('text-center')
+        hiScore.innerHTML = currentObj.initials + ' - ' + currentObj.userScore;
         displayHiScore.appendChild(hiScore)
-        //its not printing anything!!
     }
 }
 

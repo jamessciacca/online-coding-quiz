@@ -34,3 +34,8 @@ button{
     margin-left: 25%;
     margin-right: 25%;
 }
+
+li {
+    text-align: center;
+    list-style-position: inside;
+}
